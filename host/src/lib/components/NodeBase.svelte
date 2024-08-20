@@ -3,16 +3,15 @@
     export let barebones = false;
     export let open = true;
 
-    import {ChevronDown} from "svelte-feathers";
+    import { ChevronRight } from "svelte-feathers";
 </script>
 
-<details {open}>
-    <summary>
-        <header class="node-header">
-            <slot name="handle" />
-            <slot name="icon" />
-            <strong>{title}</strong>
-        </header>
+<details class="node-base" bind:open>
+    <summary class="node-header">
+        <slot name="handle" />
+        <slot name="icon" />
+        <strong>{title}</strong>
+        <ChevronRight size="16" class="caret" />
     </summary>
 
     <div class="node-body" class:barebones>
@@ -21,15 +20,9 @@
 </details>
 
 <style>
-    details {
-        background-color: transparent;
-    }
-    details > summary  {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        list-style: none;
-        padding-inline-end: 8px;
+    /* We use a fake version of this because webkit sucks */
+    summary::-webkit-details-marker {
+        display: none;
     }
 
     .node-header {
@@ -39,15 +32,29 @@
         gap: 8px;
         width: 100%;
         height: 36px;
-        padding-inline: 16px;
-        border-radius: 12px 12px 0px 12px;
+        border-radius: 12px;
+        padding-inline: 16px 8px;
         background: var(--background-tertiary);
         color: var(--foreground-primary);
         border: none;
     }
 
+    .node-header strong {
+        flex: 1 1 auto;
+    }
+
     .node-header > :global(svg) {
+        flex: 0 0 auto;
         color: var(--accent-primary);
+    }
+
+    .node-header > :global(.caret) {
+        transition: 150ms ease transform;
+        color: var(--foreground-secondary);
+    }
+
+    .node-base[open] :global(.caret) {
+        transform: rotate(90deg);
     }
 
     .node-body {
