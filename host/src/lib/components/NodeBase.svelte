@@ -4,9 +4,12 @@
     export let open = true;
 
     import { ChevronRight } from "svelte-feathers";
+
+    let className = "";
+    export { className as class };
 </script>
 
-<details class="node-base" bind:open>
+<details class="node-base {className}" bind:open>
     <summary class="node-header">
         <slot name="handle" />
         <slot name="icon" />
@@ -33,7 +36,7 @@
         width: 100%;
         height: 36px;
         border-radius: 12px;
-        padding-inline: 16px 8px;
+        padding-inline: 16px 12px;
         background: var(--background-tertiary);
         color: var(--foreground-primary);
         border: none;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Menu } from "svelte-feathers";
+    import { Clock, Hash, Menu, PlusCircle } from "svelte-feathers";
 
     import { dndType } from "~/lib/stores";
     import { Button, DraggableDevice } from "~/lib/components";
@@ -81,6 +81,24 @@
         scrollEdgeBottom =
             target.scrollHeight - target.scrollTop - target.clientHeight < 24;
     }
+
+    const DATA_NODES =  [
+        {
+            name: "Value",
+            icon: Hash,
+            node: "value",
+        },
+        {
+            name: "Math",
+            icon: PlusCircle,
+            node: "math",
+        },
+        {
+            name: "Time",
+            icon: Clock,
+            node: "time",
+        }
+    ];
 
     const SMART_DEVICES = [
         {
@@ -192,6 +210,23 @@
         <hr />
         <ul class="device-category">
             {#each ADI_DEVICES as device}
+                <li>
+                    <DraggableDevice
+                        name={device.name}
+                        on:dragstart={(e) => handleDragStart(e, device.node)}
+                    >
+                        <svelte:component
+                            this={device.icon}
+                            slot="icon"
+                            size="16"
+                        />
+                    </DraggableDevice>
+                </li>
+            {/each}
+        </ul>
+        <hr />
+        <ul class="device-category">
+            {#each DATA_NODES as device}
                 <li>
                     <DraggableDevice
                         name={device.name}

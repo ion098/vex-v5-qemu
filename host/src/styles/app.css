@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
     color-scheme: dark;
 
-    --font-family-text: "Manrope", system-ui, sans-serif;
+    --font-family-text: "Manrope", serif;
 
     --base-hue: 240deg;
+    --data-hue: calc(var(--base-hue) - 40deg);
 
     --accent-primary: hsl(var(--base-hue), 69%, 76%);
     --accent-faded: hsla(var(--base-hue), 69%, 76%, 50%);
@@ -25,6 +26,9 @@
     --interactive-secondary: hsl(var(--base-hue), 7%, 18%);
     --interactive-tertiary: hsl(var(--base-hue), 7%, 24%);
     --interactive-quarternary: hsl(var(--base-hue), 7%, 32%);
+
+    --data-primary: hsl(var(--data-hue), 69%, 76%);
+    --data-faded: hsla(var(--data-hue), 69%, 76%, 50%);
 }
 
 html,

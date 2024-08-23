@@ -10,14 +10,18 @@
     import Session from "~/lib/session";
     import { terminal, session, nodes, edges } from "~/lib/stores";
     import { Button, Dialog } from "~/lib/components";
-    import { Toolbar, Uploader, Sidebar, Flow, Terminal } from "~/lib/layout";
+    import { Toolbar, Sidebar, Flow, Terminal } from "~/lib/layout";
     import {
         BrainNode,
         AdiNode,
         BatteryNode,
         GpsNode,
         DistanceNode,
+        ValueNode,
+        MathNode,
+        TimeNode,
     } from "~/lib/nodes";
+    import { DataEdge } from "~/lib/edges";
 
     import { Pause, Play, RefreshCw, Settings, Power } from "svelte-feathers";
 
@@ -36,6 +40,12 @@
         battery: BatteryNode,
         gps: GpsNode,
         distance: DistanceNode,
+        value: ValueNode,
+        math: MathNode,
+        time: TimeNode,
+    };
+    const edgeTypes = {
+        data: DataEdge,
     };
 
     onMount(async () => {
@@ -125,15 +135,9 @@
                 </Button>
             </Toolbar>
             <section class="display-view">
-                {#if $session?.running}
-                    <Flow {nodeTypes} {nodes} {edges} />
-                {:else}
-                    <Uploader on:upload={handleUpload} />
-                {/if}
+                <Flow {nodeTypes} {edgeTypes} {nodes} {edges} />
             </section>
-            {#if $session?.running}
-                <Terminal />
-            {/if}
+            <Terminal />
         </div>
 
         <Dialog bind:open={settingsDialogOpen}>
